@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack Strategy Trainer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="table">
+            <div id="welcome-message">
+                <h1>Blackjack Strategy Trainer</h1>
+                <p>Practice your blackjack decision-making skills!</p>
+                <p>Click 'Deal' to start a new hand.</p>
+            </div>
+            <div class="dealer-hand">
+                <h2>Dealer's Hand</h2>
+                <div id="dealer-cards"></div>
+            </div>
+            <div class="player-hand">
+                <h2>Your Hand</h2>
+                <div id="player-cards"></div>
+                <div id="hand-value"></div>
+            </div>
+            <div class="actions">
+                <button id="hit">Hit</button>
+                <button id="stand">Stand</button>
+                <button id="double">Double</button>
+                <button id="split">Split</button>
+            </div>
+            <div id="message"></div>
+            <button id="deal">Deal</button>
+        </div>
+    </div>
+    <script src="blackjack.js"></script>
+</body>
+</html> 
