@@ -15,8 +15,8 @@ class Deck {
   }
 
   reset() {
-    const suits = ["♠", "♥", "♦", "♣"];
-    const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+    const suits = ['♠', '♥', '♦', '♣'];
+    const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
     this.cards = [];
 
     for (let suit of suits) {
@@ -51,20 +51,20 @@ class BlackjackGame {
 
   hideGameElements() {
     // Hide all game elements initially
-    document.querySelector(".dealer-hand").style.display = "none";
-    document.querySelector(".player-hand").style.display = "none";
-    document.querySelector(".actions").style.display = "none";
-    document.getElementById("message").style.display = "none";
+    document.querySelector('.dealer-hand').style.display = 'none';
+    document.querySelector('.player-hand').style.display = 'none';
+    document.querySelector('.actions').style.display = 'none';
+    document.getElementById('message').style.display = 'none';
   }
 
   showGameElements() {
     // Hide welcome message
-    document.getElementById("welcome-message").style.display = "none";
+    document.getElementById('welcome-message').style.display = 'none';
     // Show all game elements when hand is dealt
-    document.querySelector(".dealer-hand").style.display = "block";
-    document.querySelector(".player-hand").style.display = "block";
-    document.querySelector(".actions").style.display = "flex";
-    document.getElementById("message").style.display = "block";
+    document.querySelector('.dealer-hand').style.display = 'block';
+    document.querySelector('.player-hand').style.display = 'block';
+    document.querySelector('.actions').style.display = 'flex';
+    document.getElementById('message').style.display = 'block';
   }
 
   calculateHandValue(hand) {
@@ -72,9 +72,9 @@ class BlackjackGame {
     let aces = 0;
 
     for (let card of hand) {
-      if (card.value === "A") {
+      if (card.value === 'A') {
         aces += 1;
-      } else if (["K", "Q", "J"].includes(card.value)) {
+      } else if (['K', 'Q', 'J'].includes(card.value)) {
         value += 10;
       } else {
         value += parseInt(card.value);
@@ -96,51 +96,61 @@ class BlackjackGame {
     const playerValue = this.calculateHandValue(this.playerHand);
     const dealerUpcard = this.dealerHand[0].value;
     const dealerUpcardValue = this.calculateHandValue([this.dealerHand[0]]);
-    const isPair = this.playerHand.length === 2 && this.playerHand[0].value === this.playerHand[1].value;
-    const isSoft = this.playerHand.some((card) => card.value === "A") && playerValue <= 21;
+    const isPair =
+      this.playerHand.length === 2 && this.playerHand[0].value === this.playerHand[1].value;
+    const isSoft = this.playerHand.some((card) => card.value === 'A') && playerValue <= 21;
 
     // Pairs
     if (isPair) {
-      if (["A", "8"].includes(this.playerHand[0].value)) return "split";
-      if (this.playerHand[0].value === "9" && !["7", "10", "J", "Q", "K", "A"].includes(dealerUpcard)) return "split";
-      if (["2", "3", "7"].includes(this.playerHand[0].value) && dealerUpcardValue <= 7) return "split";
-      if (["4", "6"].includes(this.playerHand[0].value) && dealerUpcardValue >= 2 && dealerUpcardValue <= 7)
-        return "split";
+      if (['A', '8'].includes(this.playerHand[0].value)) return 'split';
+      if (
+        this.playerHand[0].value === '9' &&
+        !['7', '10', 'J', 'Q', 'K', 'A'].includes(dealerUpcard)
+      )
+        return 'split';
+      if (['2', '3', '7'].includes(this.playerHand[0].value) && dealerUpcardValue <= 7)
+        return 'split';
+      if (
+        ['4', '6'].includes(this.playerHand[0].value) &&
+        dealerUpcardValue >= 2 &&
+        dealerUpcardValue <= 7
+      )
+        return 'split';
     }
 
     // Soft hands
     if (isSoft) {
-      if (playerValue >= 19) return "stand";
+      if (playerValue >= 19) return 'stand';
       if (playerValue === 18) {
-        if (["2", "3", "4", "5", "6"].includes(dealerUpcard)) return "double";
-        if (["7", "8"].includes(dealerUpcard)) return "stand";
-        return "hit";
+        if (['2', '3', '4', '5', '6'].includes(dealerUpcard)) return 'double';
+        if (['7', '8'].includes(dealerUpcard)) return 'stand';
+        return 'hit';
       }
-      if (playerValue === 17 && dealerUpcardValue >= 3 && dealerUpcardValue <= 6) return "double";
-      if (playerValue === 16 && dealerUpcardValue >= 4 && dealerUpcardValue <= 6) return "double";
-      if (playerValue === 15 && dealerUpcardValue >= 4 && dealerUpcardValue <= 6) return "double";
-      if (playerValue === 14 && dealerUpcardValue >= 5 && dealerUpcardValue <= 6) return "double";
-      if (playerValue === 13 && dealerUpcardValue >= 5 && dealerUpcardValue <= 6) return "double";
-      return "hit";
+      if (playerValue === 17 && dealerUpcardValue >= 3 && dealerUpcardValue <= 6) return 'double';
+      if (playerValue === 16 && dealerUpcardValue >= 4 && dealerUpcardValue <= 6) return 'double';
+      if (playerValue === 15 && dealerUpcardValue >= 4 && dealerUpcardValue <= 6) return 'double';
+      if (playerValue === 14 && dealerUpcardValue >= 5 && dealerUpcardValue <= 6) return 'double';
+      if (playerValue === 13 && dealerUpcardValue >= 5 && dealerUpcardValue <= 6) return 'double';
+      return 'hit';
     }
 
     // Hard hands
-    if (playerValue >= 17) return "stand";
-    if (playerValue >= 13 && dealerUpcardValue <= 6) return "stand";
-    if (playerValue === 12 && dealerUpcardValue >= 4 && dealerUpcardValue <= 6) return "stand";
-    if (playerValue === 11) return "double";
-    if (playerValue === 10 && dealerUpcardValue <= 9) return "double";
-    if (playerValue === 9 && dealerUpcardValue >= 3 && dealerUpcardValue <= 6) return "double";
+    if (playerValue >= 17) return 'stand';
+    if (playerValue >= 13 && dealerUpcardValue <= 6) return 'stand';
+    if (playerValue === 12 && dealerUpcardValue >= 4 && dealerUpcardValue <= 6) return 'stand';
+    if (playerValue === 11) return 'double';
+    if (playerValue === 10 && dealerUpcardValue <= 9) return 'double';
+    if (playerValue === 9 && dealerUpcardValue >= 3 && dealerUpcardValue <= 6) return 'double';
 
-    return "hit";
+    return 'hit';
   }
 
   setupEventListeners() {
-    document.getElementById("deal").addEventListener("click", () => this.dealNewHand());
-    document.getElementById("hit").addEventListener("click", () => this.handleAction("hit"));
-    document.getElementById("stand").addEventListener("click", () => this.handleAction("stand"));
-    document.getElementById("double").addEventListener("click", () => this.handleAction("double"));
-    document.getElementById("split").addEventListener("click", () => this.handleAction("split"));
+    document.getElementById('deal').addEventListener('click', () => this.dealNewHand());
+    document.getElementById('hit').addEventListener('click', () => this.handleAction('hit'));
+    document.getElementById('stand').addEventListener('click', () => this.handleAction('stand'));
+    document.getElementById('double').addEventListener('click', () => this.handleAction('double'));
+    document.getElementById('split').addEventListener('click', () => this.handleAction('split'));
   }
 
   dealNewHand() {
@@ -150,22 +160,22 @@ class BlackjackGame {
     this.activeHand = true;
     this.showGameElements();
     // Clear the previous message
-    document.getElementById("message").textContent = "";
-    document.getElementById("message").style.backgroundColor = "";
+    document.getElementById('message').textContent = '';
+    document.getElementById('message').style.backgroundColor = '';
     this.updateDisplay();
     this.updateButtonStates();
   }
 
   handleAction(action) {
     const correctAction = this.getBasicStrategy();
-    const message = document.getElementById("message");
+    const message = document.getElementById('message');
 
     if (action === correctAction) {
       message.textContent = `Correct! '${action}' is the optimal play in this situation.`;
-      message.style.backgroundColor = "#4CAF50";
+      message.style.backgroundColor = '#4CAF50';
     } else {
       message.textContent = `Incorrect. The optimal play would be to ${correctAction}.`;
-      message.style.backgroundColor = "#f44336";
+      message.style.backgroundColor = '#f44336';
     }
 
     this.activeHand = false;
@@ -173,8 +183,8 @@ class BlackjackGame {
   }
 
   updateButtonStates() {
-    const dealButton = document.getElementById("deal");
-    const actionButtons = document.querySelectorAll(".actions button");
+    const dealButton = document.getElementById('deal');
+    const actionButtons = document.querySelectorAll('.actions button');
 
     dealButton.disabled = this.activeHand;
     actionButtons.forEach((button) => {
@@ -183,12 +193,12 @@ class BlackjackGame {
   }
 
   updateDisplay() {
-    const dealerCards = document.getElementById("dealer-cards");
-    const playerCards = document.getElementById("player-cards");
-    const handValue = document.getElementById("hand-value");
+    const dealerCards = document.getElementById('dealer-cards');
+    const playerCards = document.getElementById('player-cards');
+    const handValue = document.getElementById('hand-value');
 
-    dealerCards.innerHTML = "";
-    playerCards.innerHTML = "";
+    dealerCards.innerHTML = '';
+    playerCards.innerHTML = '';
 
     this.dealerHand.forEach((card) => {
       dealerCards.innerHTML += `<div class="card" data-suit="${card.suit}">${card.value}${card.suit}</div>`;
