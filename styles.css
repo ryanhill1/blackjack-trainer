@@ -110,6 +110,11 @@ body {
   font-weight: bold;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .actions button:disabled {
@@ -339,9 +344,9 @@ h2 {
   }
 
   .actions button {
-    padding: 10px 15px;
-    font-size: 14px;
-    min-width: 60px;
+    padding: 10px 12px;
+    font-size: 13px;
+    min-width: 55px;
   }
 
   #deal {
