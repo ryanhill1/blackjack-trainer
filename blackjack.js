@@ -159,9 +159,11 @@ class BlackjackGame {
     this.dealerHand = [this.deck.deal()];
     this.activeHand = true;
     this.showGameElements();
-    // Clear the previous message
-    document.getElementById('message').textContent = '';
-    document.getElementById('message').style.backgroundColor = '';
+    // Clear the previous message and its styling
+    const message = document.getElementById('message');
+    message.textContent = '';
+    message.style.backgroundColor = '';
+    message.style.display = 'none';
     this.updateDisplay();
     this.updateButtonStates();
   }
@@ -169,14 +171,12 @@ class BlackjackGame {
   handleAction(action) {
     const correctAction = this.getBasicStrategy();
     const message = document.getElementById('message');
+    message.style.display = 'block';
 
-    if (action === correctAction) {
-      message.textContent = `Correct! '${action}' is the optimal play in this situation.`;
-      message.style.backgroundColor = '#4CAF50';
-    } else {
-      message.textContent = `Incorrect. The optimal play would be to ${correctAction}.`;
-      message.style.backgroundColor = '#f44336';
-    }
+    const isCorrect = action === correctAction;
+    const capitalizedAction = correctAction.charAt(0).toUpperCase() + correctAction.slice(1);
+    message.textContent = `${isCorrect ? 'Correct!' : 'Incorrect.'} '${capitalizedAction}' is the optimal play.`;
+    message.style.backgroundColor = isCorrect ? '#4CAF50' : '#f44336';
 
     this.activeHand = false;
     this.updateButtonStates();
